@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const features = [
   {
     eyebrow: "Parse",
@@ -16,18 +20,41 @@ const features = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
 export function FeatureRail() {
   return (
     <section id="workflow" className="px-4 py-20 sm:px-6 lg:px-10">
-      <div className="mx-auto grid max-w-[1300px] gap-8 lg:grid-cols-3">
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        className="mx-auto grid max-w-[1300px] gap-8 lg:grid-cols-3"
+      >
         {features.map((feature) => (
-          <article key={feature.title} className="border-t border-[var(--border)] pt-6">
+          <motion.article 
+            key={feature.title} 
+            variants={itemVariants}
+            className="border-t border-[var(--border)] pt-6"
+          >
             <p className="text-xs uppercase tracking-[0.24em] text-[var(--muted)]">{feature.eyebrow}</p>
             <h2 className="section-title mt-4 text-3xl font-semibold leading-tight">{feature.title}</h2>
             <p className="mt-4 max-w-sm text-base leading-7 text-[var(--muted)]">{feature.body}</p>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

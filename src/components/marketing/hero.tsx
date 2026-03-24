@@ -28,17 +28,19 @@ export function MarketingHero() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/sign-up"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-5 py-3 text-sm font-medium text-white"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-6 py-3.5 text-sm font-semibold shadow-xl transition hover:bg-[var(--foreground)]/90 hover:scale-[1.02]"
+              style={{ color: "#ffffff" }}
             >
               Launch Your Copilot
               <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link
+            <a
               href="#workflow"
-              className="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white/65 px-5 py-3 text-sm font-medium"
+              className="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white px-6 py-3.5 text-sm font-medium shadow-sm transition hover:bg-gray-50 hover:scale-[1.02]"
+              style={{ color: "var(--foreground)" }}
             >
               See the workflow
-            </Link>
+            </a>
           </div>
         </motion.div>
 

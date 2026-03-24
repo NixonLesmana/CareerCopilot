@@ -12,7 +12,7 @@ const isProtectedRoute = createRouteMatcher([
 
 export default clerkMiddleware(async (auth, request) => {
   if (isProtectedRoute(request)) {
-    await auth.protect();
+    await auth.protect({ unauthenticatedUrl: new URL("/sign-up", request.url).toString() });
   }
 });
 
