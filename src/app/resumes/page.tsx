@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { requireUser } from "@/lib/auth";
 import { SiteHeader } from "@/components/shared/site-header";
+import { UploadForm } from "@/components/upload/upload-form";
 
 export default async function ResumesPage() {
   const user = await requireUser();
@@ -17,23 +18,7 @@ export default async function ResumesPage() {
           <section className="glass rounded-[32px] p-8">
             <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">Upload resume</p>
             <h1 className="section-title mt-4 text-4xl font-semibold">Add a base resume.</h1>
-            <form action="/api/resumes/upload" method="post" encType="multipart/form-data" className="mt-8 space-y-4">
-              <input
-                type="text"
-                name="title"
-                placeholder="Summer 2026 software resume"
-                className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3"
-                required
-              />
-              <input
-                type="file"
-                name="file"
-                accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                className="w-full rounded-2xl border border-dashed border-[var(--border)] bg-white px-4 py-6"
-                required
-              />
-              <button className="rounded-full bg-[var(--foreground)] px-5 py-3 text-sm text-white">Upload and parse</button>
-            </form>
+            <UploadForm />
           </section>
           <section className="rounded-[32px] border border-[var(--border)] bg-white/75 p-8">
             <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">Library</p>
