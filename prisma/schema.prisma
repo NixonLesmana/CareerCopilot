@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ResumeStatus {
+  UPLOADED
+  PARSED
+  FAILED
+}
+
+enum JobSourceType {
+  PASTE
+  URL
+}
+
+enum ArtifactType {
+  BULLET_REWRITE
+  EXPERIENCE_REWRITE
+  PROJECT_REWRITE
+  SUMMARY_REWRITE
+  SKILLS_SUGGESTION
+  COVER_LETTER
+  RESUME_EXPORT
+}
+
+model User {
+  id              String              @id @default(cuid())
+  clerkId         String              @unique
+  email           String              @unique
+  firstName       String?
+  lastName        String?
+  headline        String?
+  targetRole      String?
+  graduationYear  Int?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  resumes         Resume[]
+  jobs            JobPosting[]
+  analyses        MatchAnalysis[]
+  artifacts       GeneratedArtifact[]
+  usageEvents     UsageEvent[]
+}
+
+model Resume {
+  id              String              @id @default(cuid())
+  userId          String
+  title           String
+  fileName        String
+  mimeType        String
+  rawText         String
+  status          ResumeStatus        @default(UPLOADED)
+  parseConfidence Float?
+  parsedData      Json?
+  userEdits       Json?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  analyses        MatchAnalysis[]
+}
+
+model JobPosting {
+  id              String              @id @default(cuid())
+  userId          String
+  sourceType      JobSourceType
+  title           String
+  company         String?
+  url             String?
+  rawText         String
+  parsedData      Json?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  analyses        MatchAnalysis[]
+}
+
+model MatchAnalysis {
+  id              String              @id @default(cuid())
+  userId          String
+  resumeId        String
+  jobId           String
+  overallScore    Int
+  result          Json
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resume          Resume              @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  job             JobPosting          @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  artifacts       GeneratedArtifact[]
+}
+
+model GeneratedArtifact {
+  id              String              @id @default(cuid())
+  userId          String
+  analysisId      String
+  type            ArtifactType
+  title           String
+  content         Json
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  analysis        MatchAnalysis       @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+}
+
+model UsageEvent {
+  id              String              @id @default(cuid())
+  userId          String
+  eventType       String
+  amount          Int                 @default(1)
+  metadata        Json?
+  createdAt       DateTime            @default(now())
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
