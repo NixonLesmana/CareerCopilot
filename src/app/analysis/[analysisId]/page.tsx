@@ -4,6 +4,7 @@ import { requireUser } from "@/lib/auth";
 import { AnalysisCard } from "@/components/analysis/analysis-card";
 import { CoverLetterPreview } from "@/components/export/cover-letter-preview";
 import { RewritePanel } from "@/components/rewrite/rewrite-panel";
+import { RewriteForm } from "@/components/rewrite/rewrite-form";
 import { SiteHeader } from "@/components/shared/site-header";
 import { CoverLetterSchema, MatchAnalysisSchema, RewriteSetSchema } from "@/types/domain";
 
@@ -29,55 +30,57 @@ export default async function AnalysisDetailPage({
   const coverLetter = coverLetterArtifact ? CoverLetterSchema.parse(coverLetterArtifact.content) : null;
 
   return (
-    <>
-      <SiteHeader compact />
-      <main className="mx-auto max-w-[1260px] px-4 py-10 sm:px-6">
-        <section className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <div>
+    <div className="flex flex-col h-screen overflow-hidden bg-transparent">
+      <div className="flex-none bg-white/50 backdrop-blur-md border-b border-[var(--border)] z-10 relative">
+         <SiteHeader compact />
+      </div>
+      
+      <main className="flex-1 overflow-hidden grid lg:grid-cols-2 relative h-full">
+        {/* Left Pane: Job Context & Analysis */}
+        <section className="h-[calc(100vh-80px)] overflow-y-auto border-r border-[var(--border)] p-6 lg:p-10 pb-24">
+          <div className="mb-8">
             <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">{analysis.job.company ?? "Target company"}</p>
-            <h1 className="section-title mt-3 text-5xl font-semibold">{analysis.job.title}</h1>
-            <p className="mt-3 text-sm text-[var(--muted)]">{analysis.resume.title}</p>
+            <h1 className="section-title mt-3 text-4xl font-semibold">{analysis.job.title}</h1>
+            <p className="mt-2 text-sm text-[var(--muted)]">Matching against: {analysis.resume.title}</p>
           </div>
+          <AnalysisCard analysis={parsedAnalysis} />
         </section>
 
-        <div className="grid gap-6">
-          <AnalysisCard analysis={parsedAnalysis} />
-          <div className="grid gap-6 lg:grid-cols-2">
+        {/* Right Pane: Action Studio */}
+        <section className="h-[calc(100vh-80px)] overflow-y-auto bg-white/40 p-6 lg:p-10 pb-24">
+          <div className="mb-8">
+            <h2 className="section-title text-2xl font-semibold">Rewrite Studio</h2>
+            <p className="mt-2 text-sm text-[var(--muted)]">Tailor your resume directly to the missing skills highlighted.</p>
+          </div>
+
+          <div className="space-y-8">
             {rewrite ? (
               <RewritePanel rewrite={rewrite} />
             ) : (
-              <form action="/api/rewrite" method="post" className="rounded-[32px] border border-[var(--border)] bg-white/75 p-6">
-                <input type="hidden" name="analysisId" value={analysis.id} />
-                <input type="hidden" name="type" value="bullet_rewrite" />
-                <textarea
-                  name="sourceText"
-                  placeholder="Paste a bullet or short section to tailor..."
-                  className="min-h-52 w-full rounded-[24px] border border-[var(--border)] px-4 py-4"
-                  required
-                />
-                <button className="mt-4 rounded-full bg-[var(--foreground)] px-5 py-3 text-sm text-white">
-                  Generate rewrite
-                </button>
-              </form>
+              <RewriteForm analysisId={analysis.id} />
             )}
+
             {coverLetter ? (
               <CoverLetterPreview letter={coverLetter} />
             ) : (
-              <form action="/api/cover-letter" method="post" className="rounded-[32px] border border-[var(--border)] bg-white/75 p-6">
+              <form action="/api/cover-letter" method="post" className="rounded-[32px] border border-[var(--border)] bg-white/75 p-6 shadow-sm">
                 <input type="hidden" name="analysisId" value={analysis.id} />
-                <select name="tone" className="w-full rounded-2xl border border-[var(--border)] px-4 py-3">
+                <div className="mb-4">
+                  <h3 className="text-sm font-semibold uppercase tracking-[0.1em] text-[var(--foreground)]">Generate Cover Letter</h3>
+                </div>
+                <select name="tone" className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)]">
                   <option value="professional">Professional</option>
                   <option value="confident">Confident</option>
                   <option value="warm">Warm</option>
                 </select>
-                <button className="mt-4 rounded-full bg-[var(--foreground)] px-5 py-3 text-sm text-white">
+                <button className="mt-4 w-full rounded-full bg-[var(--foreground)] px-5 py-4 text-sm font-medium text-white transition hover:bg-[var(--foreground)]/90">
                   Draft cover letter
                 </button>
               </form>
             )}
           </div>
-        </div>
+        </section>
       </main>
-    </>
+    </div>
   );
 }

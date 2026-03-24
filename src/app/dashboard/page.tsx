@@ -4,6 +4,7 @@ import { requireUser } from "@/lib/auth";
 import { EmptyState } from "@/components/dashboard/empty-state";
 import { MetricTile } from "@/components/dashboard/metric-tile";
 import { SiteHeader } from "@/components/shared/site-header";
+import { AnalysisForm } from "@/components/dashboard/analysis-form";
 
 export default async function DashboardPage() {
   const user = await requireUser();
@@ -47,32 +48,10 @@ export default async function DashboardPage() {
         </section>
         <section className="mt-8">
           {resumeCount === 0 || jobCount === 0 ? (
-            <EmptyState />
+            <EmptyState resumeCount={resumeCount} jobCount={jobCount} />
           ) : (
             <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-              <form action="/api/analysis/run" method="post" className="glass rounded-[32px] p-8">
-                <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">Run analysis</p>
-                <h2 className="section-title mt-4 text-4xl font-semibold">Compare a resume against a live role.</h2>
-                <div className="mt-8 space-y-4">
-                  <select name="resumeId" className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3">
-                    {resumes.map((resume) => (
-                      <option key={resume.id} value={resume.id}>
-                        {resume.title}
-                      </option>
-                    ))}
-                  </select>
-                  <select name="jobId" className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3">
-                    {jobs.map((job) => (
-                      <option key={job.id} value={job.id}>
-                        {job.title} {job.company ? `· ${job.company}` : ""}
-                      </option>
-                    ))}
-                  </select>
-                  <button className="rounded-full bg-[var(--foreground)] px-5 py-3 text-sm text-white">
-                    Analyze fit
-                  </button>
-                </div>
-              </form>
+              <AnalysisForm resumes={resumes} jobs={jobs} />
               <div className="grid gap-4">
                 {analysisCount === 0 ? (
                   <div className="rounded-[32px] border border-[var(--border)] bg-white/75 p-8 text-sm leading-7 text-[var(--muted)]">
