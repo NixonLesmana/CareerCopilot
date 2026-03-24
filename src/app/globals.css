@@ -49,7 +49,7 @@ select {
 
 .page-shell {
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .page-shell::before {

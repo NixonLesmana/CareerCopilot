@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import "@/app/globals.css";
 import { isClerkConfigured } from "@/lib/env";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Career Copilot",
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const content = (
     <html lang="en">
-      <body className="page-shell">{children}</body>
+      <body className="page-shell">
+        {children}
+        <Toaster position="bottom-right" />
+      </body>
     </html>
   );
 
