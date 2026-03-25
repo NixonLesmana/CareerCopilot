@@ -38,7 +38,8 @@ export function EmptyState({ resumeCount, jobCount }: EmptyStateProps) {
       <div className="mt-6 flex gap-3">
         <Link
           href="/jobs"
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--foreground)] px-5 py-3 text-sm text-white transition hover:bg-[var(--foreground)]/90"
+          className="inline-flex items-center gap-2 rounded-full bg-[var(--foreground)] px-5 py-3 text-sm transition hover:bg-[var(--foreground)]/90"
+          style={{ color: "#ffffff" }}
         >
           Add Job Posting
           <ArrowRight className="h-4 w-4" />

@@ -80,7 +80,8 @@ export function AnalysisForm({ resumes, jobs }: { resumes: Item[], jobs: Item[] 
         <button 
           type="submit" 
           disabled={isPending}
-          className="flex w-full items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-6 py-4 text-sm font-medium text-white transition hover:bg-[var(--foreground)]/90 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-6 py-4 text-sm font-medium transition hover:bg-[var(--foreground)]/90 disabled:opacity-50"
+          style={{ color: "#ffffff" }}
         >
           {isPending && <Loader2 size={16} className="animate-spin" />}
           {isPending ? "Analyzing fit..." : "Analyze fit"}

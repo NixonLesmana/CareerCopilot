@@ -102,7 +102,8 @@ export function UploadForm() {
       <button 
         type="submit" 
         disabled={isPending || !file || !title}
-        className="flex w-full items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-5 py-4 text-sm font-medium text-white transition hover:bg-[var(--foreground)]/90 disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-5 py-4 text-sm font-medium transition hover:bg-[var(--foreground)]/90 disabled:opacity-50"
+        style={{ color: "#ffffff" }}
       >
         {isPending && <Loader2 size={16} className="animate-spin" />}
         {isPending ? "Uploading & Parsing..." : "Upload Resume"}
