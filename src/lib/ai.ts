@@ -39,15 +39,13 @@ export async function parseResumeWithAI(rawText: string): Promise<ResumeParse> {
   const client = getClient();
   if (!client) return fallbackResumeParse(rawText);
 
-  const response = await client.responses.parse({
+  const response = await client.beta.chat.completions.parse({
     model,
-    input: buildResumeCleanupPrompt(rawText),
-    text: {
-      format: zodResponseFormat(ResumeParseSchema, "resume_parse") as never,
-    },
+    messages: [{ role: "user", content: buildResumeCleanupPrompt(rawText) }],
+    response_format: zodResponseFormat(ResumeParseSchema, "resume_parse"),
   });
 
-  return (response.output_parsed as ResumeParse | null) ?? fallbackResumeParse(rawText);
+  return response.choices[0].message.parsed ?? fallbackResumeParse(rawText);
 }
 
 export async function parseJobWithAI(
@@ -58,15 +56,13 @@ export async function parseJobWithAI(
   const client = getClient();
   if (!client) return fallbackJobParse(rawText, title, company);
 
-  const response = await client.responses.parse({
+  const response = await client.beta.chat.completions.parse({
     model,
-    input: buildJobCleanupPrompt(rawText, title, company),
-    text: {
-      format: zodResponseFormat(JobParseSchema, "job_parse") as never,
-    },
+    messages: [{ role: "user", content: buildJobCleanupPrompt(rawText, title, company) }],
+    response_format: zodResponseFormat(JobParseSchema, "job_parse"),
   });
 
-  return (response.output_parsed as JobParse | null) ?? fallbackJobParse(rawText, title, company);
+  return response.choices[0].message.parsed ?? fallbackJobParse(rawText, title, company);
 }
 
 export async function analyzeMatchWithAI(
@@ -76,15 +72,13 @@ export async function analyzeMatchWithAI(
   const client = getClient();
   if (!client) return fallbackMatchAnalysis(resumeText, jobText);
 
-  const response = await client.responses.parse({
+  const response = await client.beta.chat.completions.parse({
     model,
-    input: buildMatchAnalysisPrompt(resumeText, jobText),
-    text: {
-      format: zodResponseFormat(MatchAnalysisSchema, "match_analysis") as never,
-    },
+    messages: [{ role: "user", content: buildMatchAnalysisPrompt(resumeText, jobText) }],
+    response_format: zodResponseFormat(MatchAnalysisSchema, "match_analysis"),
   });
 
-  return (response.output_parsed as MatchAnalysis | null) ?? fallbackMatchAnalysis(resumeText, jobText);
+  return response.choices[0].message.parsed ?? fallbackMatchAnalysis(resumeText, jobText);
 }
 
 export async function generateRewriteWithAI(
@@ -95,15 +89,13 @@ export async function generateRewriteWithAI(
   const client = getClient();
   if (!client) return fallbackRewrite(type, sourceText);
 
-  const response = await client.responses.parse({
+  const response = await client.beta.chat.completions.parse({
     model,
-    input: buildRewritePrompt(type, sourceText, analysisContext),
-    text: {
-      format: zodResponseFormat(RewriteSetSchema, "rewrite_set") as never,
-    },
+    messages: [{ role: "user", content: buildRewritePrompt(type, sourceText, analysisContext) }],
+    response_format: zodResponseFormat(RewriteSetSchema, "rewrite_set"),
   });
 
-  return (response.output_parsed as RewriteSet | null) ?? fallbackRewrite(type, sourceText);
+  return response.choices[0].message.parsed ?? fallbackRewrite(type, sourceText);
 }
 
 export async function generateCoverLetterWithAI(
@@ -113,13 +105,11 @@ export async function generateCoverLetterWithAI(
   const client = getClient();
   if (!client) return fallbackCoverLetter(analysisContext, tone);
 
-  const response = await client.responses.parse({
+  const response = await client.beta.chat.completions.parse({
     model,
-    input: buildCoverLetterPrompt(analysisContext, tone),
-    text: {
-      format: zodResponseFormat(CoverLetterSchema, "cover_letter") as never,
-    },
+    messages: [{ role: "user", content: buildCoverLetterPrompt(analysisContext, tone) }],
+    response_format: zodResponseFormat(CoverLetterSchema, "cover_letter"),
   });
 
-  return (response.output_parsed as CoverLetter | null) ?? fallbackCoverLetter(analysisContext, tone);
+  return response.choices[0].message.parsed ?? fallbackCoverLetter(analysisContext, tone);
 }

@@ -1,45 +1,45 @@
 import { z } from "zod";
 
 export const ResumeSectionSchema = z.object({
-  summary: z.string().default(""),
-  skills: z.array(z.string()).default([]),
-  education: z.array(z.string()).default([]),
-  experience: z.array(z.string()).default([]),
-  projects: z.array(z.string()).default([]),
-  certifications: z.array(z.string()).default([]),
+  summary: z.string(),
+  skills: z.array(z.string()),
+  education: z.array(z.string()),
+  experience: z.array(z.string()),
+  projects: z.array(z.string()),
+  certifications: z.array(z.string()),
 });
 
 export const ResumeParseSchema = z.object({
   contact: z.object({
-    name: z.string().default(""),
-    email: z.string().default(""),
-    phone: z.string().default(""),
-    location: z.string().default(""),
-    links: z.array(z.string()).default([]),
+    name: z.string(),
+    email: z.string(),
+    phone: z.string(),
+    location: z.string(),
+    links: z.array(z.string()),
   }),
   sections: ResumeSectionSchema,
-  keywords: z.array(z.string()).default([]),
-  confidence: z.number().min(0).max(1).default(0.8),
+  keywords: z.array(z.string()),
+  confidence: z.number(),
 });
 
 export const JobParseSchema = z.object({
   title: z.string(),
-  company: z.string().default(""),
-  location: z.string().default(""),
-  responsibilities: z.array(z.string()).default([]),
-  requirements: z.array(z.string()).default([]),
-  preferred: z.array(z.string()).default([]),
-  keywords: z.array(z.string()).default([]),
+  company: z.string(),
+  location: z.string(),
+  responsibilities: z.array(z.string()),
+  requirements: z.array(z.string()),
+  preferred: z.array(z.string()),
+  keywords: z.array(z.string()),
 });
 
 export const MatchAnalysisSchema = z.object({
-  overallScore: z.number().min(0).max(100),
-  mustHaveCoverage: z.number().min(0).max(100),
-  preferredCoverage: z.number().min(0).max(100),
-  skillsOverlap: z.number().min(0).max(100),
-  strengths: z.array(z.string()).default([]),
-  gaps: z.array(z.string()).default([]),
-  missingKeywords: z.array(z.string()).default([]),
+  overallScore: z.number(),
+  mustHaveCoverage: z.number(),
+  preferredCoverage: z.number(),
+  skillsOverlap: z.number(),
+  strengths: z.array(z.string()),
+  gaps: z.array(z.string()),
+  missingKeywords: z.array(z.string()),
   priorityActions: z.array(
     z.object({
       title: z.string(),
@@ -47,14 +47,14 @@ export const MatchAnalysisSchema = z.object({
       priority: z.enum(["high", "medium", "low"]),
     }),
   ),
-  truthfulnessWarnings: z.array(z.string()).default([]),
+  truthfulnessWarnings: z.array(z.string()),
 });
 
 export const RewriteItemSchema = z.object({
   original: z.string(),
   rewritten: z.string(),
   explanation: z.string(),
-  confidence: z.number().min(0).max(1),
+  confidence: z.number(),
 });
 
 export const RewriteSetSchema = z.object({
