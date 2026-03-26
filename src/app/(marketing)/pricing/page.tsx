@@ -15,7 +15,7 @@ export default function PricingPage() {
           <div className="glass rounded-[32px] p-8">
             <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">Pro later</p>
             <p className="section-title mt-4 text-4xl font-semibold">Usage-based</p>
-            <p className="mt-4 text-sm leading-7 text-[var(--muted)]">The codebase already tracks quotas and can be extended with Stripe when you are ready to monetize.</p>
+            <p className="mt-4 text-sm leading-7 text-[var(--muted)]">The codebase already tracks quotas and can be extended with Stripe for further improvements.</p>
           </div>
         </div>
       </main>

@@ -5,17 +5,17 @@ import { motion } from "framer-motion";
 const features = [
   {
     eyebrow: "Parse",
-    title: "Normalize resumes and job posts into structured data.",
+    title: "Turn resumes and job posts into structured data.",
     body: "Upload a PDF or DOCX, paste a job description or import from a URL, and get clean sections that power every downstream workflow.",
   },
   {
     eyebrow: "Analyze",
-    title: "Score fit with explainable strengths, gaps, and priorities.",
+    title: "Match score with detailed strengths and gaps.",
     body: "Blend keyword coverage with role-aware AI reasoning so the result feels more like guidance than a black-box number.",
   },
   {
     eyebrow: "Rewrite",
-    title: "Tailor bullets, summaries, and cover letters without faking anything.",
+    title: "Tailor bullets, summaries, and cover letters thruthfully.",
     body: "Keep the original facts, upgrade the framing, and save polished versions for every application.",
   },
 ];
@@ -36,7 +36,7 @@ const itemVariants = {
 export function FeatureRail() {
   return (
     <section id="workflow" className="px-4 py-20 sm:px-6 lg:px-10">
-      <motion.div 
+      <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -44,8 +44,8 @@ export function FeatureRail() {
         className="mx-auto grid max-w-[1300px] gap-8 lg:grid-cols-3"
       >
         {features.map((feature) => (
-          <motion.article 
-            key={feature.title} 
+          <motion.article
+            key={feature.title}
             variants={itemVariants}
             className="border-t border-[var(--border)] pt-6"
           >
