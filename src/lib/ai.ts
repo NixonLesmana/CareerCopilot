@@ -1,5 +1,5 @@
-import OpenAI from "openai";
-import { zodResponseFormat } from "openai/helpers/zod";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { generateObject } from "ai";
 import {
   type CoverLetter,
   type JobParse,
@@ -27,25 +27,30 @@ import {
   fallbackRewrite,
 } from "@/services/fallbacks";
 
-const apiKey = process.env.OPENAI_API_KEY;
-const model = process.env.OPENAI_MODEL ?? "gpt-4.1-mini";
+const apiKey = process.env.GEMINI_API_KEY;
+const modelName = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 
-function getClient() {
+function getModel() {
   if (!apiKey) return null;
-  return new OpenAI({ apiKey });
+  const google = createGoogleGenerativeAI({ apiKey });
+  return google(modelName);
 }
 
 export async function parseResumeWithAI(rawText: string): Promise<ResumeParse> {
-  const client = getClient();
-  if (!client) return fallbackResumeParse(rawText);
+  const model = getModel();
+  if (!model) return fallbackResumeParse(rawText);
 
-  const response = await client.beta.chat.completions.parse({
-    model,
-    messages: [{ role: "user", content: buildResumeCleanupPrompt(rawText) }],
-    response_format: zodResponseFormat(ResumeParseSchema, "resume_parse"),
-  });
-
-  return response.choices[0].message.parsed ?? fallbackResumeParse(rawText);
+  try {
+    const { object } = await generateObject({
+      model,
+      schema: ResumeParseSchema,
+      prompt: buildResumeCleanupPrompt(rawText),
+    });
+    return object;
+  } catch (err) {
+    console.error("AI Parse Error:", err);
+    return fallbackResumeParse(rawText);
+  }
 }
 
 export async function parseJobWithAI(
@@ -53,32 +58,40 @@ export async function parseJobWithAI(
   title?: string,
   company?: string,
 ): Promise<JobParse> {
-  const client = getClient();
-  if (!client) return fallbackJobParse(rawText, title, company);
+  const model = getModel();
+  if (!model) return fallbackJobParse(rawText, title, company);
 
-  const response = await client.beta.chat.completions.parse({
-    model,
-    messages: [{ role: "user", content: buildJobCleanupPrompt(rawText, title, company) }],
-    response_format: zodResponseFormat(JobParseSchema, "job_parse"),
-  });
-
-  return response.choices[0].message.parsed ?? fallbackJobParse(rawText, title, company);
+  try {
+    const { object } = await generateObject({
+      model,
+      schema: JobParseSchema,
+      prompt: buildJobCleanupPrompt(rawText, title, company),
+    });
+    return object;
+  } catch (err) {
+    console.error("AI Parse Error:", err);
+    return fallbackJobParse(rawText, title, company);
+  }
 }
 
 export async function analyzeMatchWithAI(
   resumeText: string,
   jobText: string,
 ): Promise<MatchAnalysis> {
-  const client = getClient();
-  if (!client) return fallbackMatchAnalysis(resumeText, jobText);
+  const model = getModel();
+  if (!model) return fallbackMatchAnalysis(resumeText, jobText);
 
-  const response = await client.beta.chat.completions.parse({
-    model,
-    messages: [{ role: "user", content: buildMatchAnalysisPrompt(resumeText, jobText) }],
-    response_format: zodResponseFormat(MatchAnalysisSchema, "match_analysis"),
-  });
-
-  return response.choices[0].message.parsed ?? fallbackMatchAnalysis(resumeText, jobText);
+  try {
+    const { object } = await generateObject({
+      model,
+      schema: MatchAnalysisSchema,
+      prompt: buildMatchAnalysisPrompt(resumeText, jobText),
+    });
+    return object;
+  } catch (err) {
+    console.error("AI Parse Error:", err);
+    return fallbackMatchAnalysis(resumeText, jobText);
+  }
 }
 
 export async function generateRewriteWithAI(
@@ -86,30 +99,38 @@ export async function generateRewriteWithAI(
   sourceText: string,
   analysisContext: string,
 ): Promise<RewriteSet> {
-  const client = getClient();
-  if (!client) return fallbackRewrite(type, sourceText);
+  const model = getModel();
+  if (!model) return fallbackRewrite(type, sourceText);
 
-  const response = await client.beta.chat.completions.parse({
-    model,
-    messages: [{ role: "user", content: buildRewritePrompt(type, sourceText, analysisContext) }],
-    response_format: zodResponseFormat(RewriteSetSchema, "rewrite_set"),
-  });
-
-  return response.choices[0].message.parsed ?? fallbackRewrite(type, sourceText);
+  try {
+    const { object } = await generateObject({
+      model,
+      schema: RewriteSetSchema,
+      prompt: buildRewritePrompt(type, sourceText, analysisContext),
+    });
+    return object;
+  } catch (err) {
+    console.error("AI Parse Error:", err);
+    return fallbackRewrite(type, sourceText);
+  }
 }
 
 export async function generateCoverLetterWithAI(
   analysisContext: string,
   tone: string,
 ): Promise<CoverLetter> {
-  const client = getClient();
-  if (!client) return fallbackCoverLetter(analysisContext, tone);
+  const model = getModel();
+  if (!model) return fallbackCoverLetter(analysisContext, tone);
 
-  const response = await client.beta.chat.completions.parse({
-    model,
-    messages: [{ role: "user", content: buildCoverLetterPrompt(analysisContext, tone) }],
-    response_format: zodResponseFormat(CoverLetterSchema, "cover_letter"),
-  });
-
-  return response.choices[0].message.parsed ?? fallbackCoverLetter(analysisContext, tone);
+  try {
+    const { object } = await generateObject({
+      model,
+      schema: CoverLetterSchema,
+      prompt: buildCoverLetterPrompt(analysisContext, tone),
+    });
+    return object;
+  } catch (err) {
+    console.error("AI Parse Error:", err);
+    return fallbackCoverLetter(analysisContext, tone);
+  }
 }
