@@ -1,13 +1,16 @@
+import Image from "next/image";
+
 export function Logo() {
   return (
-    <div className="flex items-center gap-3">
-      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--foreground)] text-sm font-semibold text-white">
-        CC
-      </div>
-      <div>
-        <p className="text-xs uppercase tracking-[0.25em] text-[var(--muted)]">AI Resume Copilot</p>
-        <p className="section-title text-2xl font-semibold">Career Copilot</p>
-      </div>
+    <div className="relative h-14 w-52 mix-blend-multiply transition-transform duration-300 hover:scale-[1.03]">
+      <Image
+        src="/career.png"
+        alt="Career Copilot"
+        fill
+        priority
+        sizes="192px"
+        className="object-contain object-left"
+      />
     </div>
   );
 }

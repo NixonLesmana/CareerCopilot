@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useAuth } from "@clerk/nextjs";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export function MarketingHero() {
+  const { userId } = useAuth();
+
   return (
     <section className="relative overflow-hidden px-4 pb-20 pt-8 sm:px-6 lg:px-10">
       <div className="mx-auto grid min-h-[calc(100svh-120px)] w-full max-w-[1300px] items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
@@ -14,24 +17,24 @@ export function MarketingHero() {
           transition={{ duration: 0.8 }}
           className="max-w-xl"
         >
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/70 px-3 py-1 text-xs uppercase tracking-[0.22em] text-[var(--muted)]">
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/70 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)] shadow-sm backdrop-blur-md">
             <Sparkles className="h-3.5 w-3.5" />
-            Built for internship season
+            Built for role-specific applications
           </div>
-          <h1 className="section-title text-5xl font-semibold leading-[0.92] text-[var(--foreground)] sm:text-6xl lg:text-7xl">
-            Turn one resume into a sharper application package for every role.
+          <h1 className="section-title text-6xl font-bold leading-[1.05] text-[var(--foreground)] sm:text-7xl lg:text-[72px]">
+            Tailor faster.<br />Apply smarter.<br />Stay truthful.
           </h1>
-          <p className="mt-6 max-w-lg text-lg leading-8 text-[var(--muted)]">
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-[var(--muted)] lg:text-xl">
             Career Copilot parses your resume, reads the job posting, explains your fit, and helps
-            you rewrite bullets and cover letters without exaggerating what you have done.
+            you rewrite bullets and cover letters.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/sign-up"
+              href={userId ? "/dashboard" : "/sign-up"}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-6 py-3.5 text-sm font-semibold shadow-xl transition hover:bg-[var(--foreground)]/90 hover:scale-[1.02]"
               style={{ color: "#ffffff" }}
             >
-              Launch Your Copilot
+              {userId ? "Go to Dashboard" : "Launch Your Copilot"}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <a
@@ -54,7 +57,7 @@ export function MarketingHero() {
             <div className="rounded-[32px] bg-[linear-gradient(180deg,#13243d_0%,#0b1525_100%)] p-6 text-white">
               <p className="text-xs uppercase tracking-[0.22em] text-white/55">Match Analysis</p>
               <div className="mt-6 flex items-end gap-3">
-                <p className="section-title text-7xl font-semibold leading-none">82</p>
+                <p className="section-title text-7xl font-semibold leading-none">88</p>
                 <p className="mb-2 text-sm text-white/70">Role fit score</p>
               </div>
               <div className="mt-8 space-y-3 text-sm text-white/75">
