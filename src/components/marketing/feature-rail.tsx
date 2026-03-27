@@ -35,7 +35,7 @@ const itemVariants = {
 
 export function FeatureRail() {
   return (
-    <section id="workflow" className="px-4 py-20 sm:px-6 lg:px-10">
+    <section id="workflow" className="px-4 py-8 sm:px-6 lg:px-10">
       <motion.div
         variants={containerVariants}
         initial="hidden"

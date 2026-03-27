@@ -8,7 +8,7 @@ export function CtaSection() {
   const { userId } = useAuth();
 
   return (
-    <section className="px-4 pb-24 sm:px-6 lg:px-10">
+    <section className="px-4 pb-8 sm:px-6 lg:px-10">
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -22,7 +22,7 @@ export function CtaSection() {
             Tailored for the role. <br />True to your story.
           </h2>
         </div>
-        <div className="space-y-6 text-sm leading-7 text-white/75">
+        <div className="space-y-3 text-sm leading-7 text-white/75">
           <p>Forget generic AI prompts that hallucinate your experience. Career Copilot strictly uses your uploaded base resume to suggest truthful, highly targeted bullet rewrites.</p>
           <p>Everything is saved in your secure workspace. Keep track of multiple roles, export your tailored resumes to PDF or DOCX, and generate cover letters that actually sound like you, not a robot.</p>
           <div className="pt-4">

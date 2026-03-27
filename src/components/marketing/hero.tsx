@@ -9,26 +9,26 @@ export function MarketingHero() {
   const { userId } = useAuth();
 
   return (
-    <section className="relative overflow-hidden px-4 pb-20 pt-8 sm:px-6 lg:px-10">
-      <div className="mx-auto grid min-h-[calc(100svh-120px)] w-full max-w-[1300px] items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+    <section className="relative overflow-hidden px-4 pb-8 pt-4 sm:px-6 lg:px-10">
+      <div className="mx-auto grid min-h-[calc(100svh-100px)] w-full max-w-[1300px] items-center gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="max-w-xl"
         >
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/70 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)] shadow-sm backdrop-blur-md">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/70 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--muted)] shadow-sm backdrop-blur-md">
             <Sparkles className="h-3.5 w-3.5" />
             Built for role-specific applications
           </div>
           <h1 className="section-title text-6xl font-bold leading-[1.05] text-[var(--foreground)] sm:text-7xl lg:text-[72px]">
             Tailor faster.<br />Apply smarter.<br />Stay truthful.
           </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-[var(--muted)] lg:text-xl">
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-[var(--muted)] lg:text-xl">
             Career Copilot parses your resume, reads the job posting, explains your fit, and helps
             you rewrite bullets and cover letters.
           </p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-6 flex flex-col gap-4 sm:flex-row">
             <Link
               href={userId ? "/dashboard" : "/sign-up"}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-6 py-3.5 text-sm font-semibold shadow-xl transition hover:bg-[var(--foreground)]/90 hover:scale-[1.02]"
@@ -51,26 +51,26 @@ export function MarketingHero() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.12 }}
-          className="glass relative rounded-[40px] p-5"
+          className="glass relative rounded-[40px] p-4"
         >
           <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="rounded-[32px] bg-[linear-gradient(180deg,#13243d_0%,#0b1525_100%)] p-6 text-white">
+            <div className="rounded-[32px] bg-[linear-gradient(180deg,#13243d_0%,#0b1525_100%)] p-4 text-white">
               <p className="text-xs uppercase tracking-[0.22em] text-white/55">Match Analysis</p>
-              <div className="mt-6 flex items-end gap-3">
+              <div className="mt-4 flex items-end gap-3">
                 <p className="section-title text-7xl font-semibold leading-none">88</p>
                 <p className="mb-2 text-sm text-white/70">Role fit score</p>
               </div>
-              <div className="mt-8 space-y-3 text-sm text-white/75">
-                <div className="rounded-2xl bg-white/10 p-4">
+              <div className="mt-4 space-y-2 text-sm text-white/75">
+                <div className="rounded-2xl bg-white/10 p-3">
                   Strong overlap in React, TypeScript, APIs, and project ownership.
                 </div>
-                <div className="rounded-2xl bg-white/10 p-4">
+                <div className="rounded-2xl bg-white/10 p-3">
                   Biggest gap: your resume undersells metrics and backend depth.
                 </div>
               </div>
             </div>
             <div className="space-y-4">
-              <div className="rounded-[28px] bg-white p-5">
+              <div className="rounded-[28px] bg-white p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">Rewrite Studio</p>
                 <p className="mt-4 text-sm font-medium text-[var(--foreground)]">Before</p>
                 <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
@@ -82,9 +82,9 @@ export function MarketingHero() {
                   enabling faster note creation and cleaner workspace navigation.
                 </p>
               </div>
-              <div className="rounded-[28px] border border-[var(--border)] bg-[var(--accent-soft)] p-5">
+              <div className="rounded-[28px] border border-[var(--border)] bg-[var(--accent-soft)] p-3">
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">Guidance</p>
-                <ul className="mt-3 space-y-3 text-sm leading-6">
+                <ul className="mt-2 space-y-2 text-sm leading-6">
                   <li>Lead with your strongest project for internship roles.</li>
                   <li>Mirror role language when it is truthful and defensible.</li>
                   <li>Never claim tools or ownership you cannot discuss confidently.</li>
