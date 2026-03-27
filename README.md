@@ -140,13 +140,14 @@ CareerCopilot
 ├── screenshots   # Application screenshots used in README
 ├── src           # Frontend, backend routes, actions, and app logic
 ├── .gitignore
+├── LICENSE
+├── README.md
 ├── eslint.config.mjs
 ├── next.config.ts
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.mjs
-├── tsconfig.json
-└── README.md
+└── tsconfig.json
 ```
 ---
 
