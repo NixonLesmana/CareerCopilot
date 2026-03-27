@@ -31,23 +31,23 @@ export function RewriteForm({ analysisId }: { analysisId: string }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-[32px] border border-[var(--border)] bg-white/75 p-6 shadow-sm">
-      <div className="flex items-center gap-2 mb-4">
-        <Sparkles className="text-[var(--accent)]" size={18} />
+    <form onSubmit={handleSubmit} className="rounded-[28px] border border-[var(--border)] bg-white/75 p-5 shadow-sm">
+      <div className="mb-3 flex items-center gap-2">
+        <Sparkles className="text-[var(--accent)]" size={16} />
         <h3 className="text-sm font-semibold uppercase tracking-[0.1em] text-[var(--foreground)]">Rewrite with AI</h3>
       </div>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Paste a bullet or section from your resume to tailor it directly to this role..."
-        className="min-h-[140px] w-full rounded-[24px] border border-[var(--border)] px-4 py-4 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] text-sm leading-relaxed"
+        className="min-h-[112px] w-full rounded-[22px] border border-[var(--border)] px-4 py-3 text-sm leading-6 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
         required
         disabled={isPending}
       />
       <button 
         type="submit"
         disabled={isPending || !text.trim()}
-        className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-5 py-4 text-sm font-medium text-white transition hover:bg-[var(--foreground)]/90 disabled:opacity-50"
+        className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-5 py-3 text-sm font-medium text-white transition hover:bg-[var(--foreground)]/90 disabled:opacity-50"
       >
         {isPending && <Loader2 size={16} className="animate-spin" />}
         {isPending ? "Rewriting..." : "Generate Rewrite"}

@@ -29,7 +29,7 @@ export function AnalysisForm({ resumes, jobs }: { resumes: Item[], jobs: Item[] 
 
     setIsPending(true);
     const result = await runAnalysisAction(formData);
-    
+
     // Do not set isPending to false on success to keep loading state 
     // during the redirect to the new page.
     if (result.error) {
@@ -42,18 +42,20 @@ export function AnalysisForm({ resumes, jobs }: { resumes: Item[], jobs: Item[] 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="glass rounded-[32px] p-8 flex flex-col justify-between">
+    <form onSubmit={handleSubmit} className="glass rounded-[28px] p-6 flex flex-col justify-between">
       <div>
         <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">Run analysis</p>
-        <h2 className="section-title mt-4 text-4xl font-semibold">Compare a resume against a live role.</h2>
+        <h3 className="section-title mt-3 text-[1.5rem] font-semibold leading-tight lg:text-[2rem]">
+          Compare your resume against a live role.
+        </h3>
       </div>
-      
-      <div className="mt-8 space-y-4">
-        <select 
-          name="resumeId" 
+
+      <div className="mt-6 space-y-3.5">
+        <select
+          name="resumeId"
           disabled={isPending}
           defaultValue=""
-          className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+          className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
           required
         >
           <option value="" disabled>Select a base resume</option>
@@ -61,12 +63,12 @@ export function AnalysisForm({ resumes, jobs }: { resumes: Item[], jobs: Item[] 
             <option key={resume.id} value={resume.id}>{resume.title}</option>
           ))}
         </select>
-        
-        <select 
-          name="jobId" 
+
+        <select
+          name="jobId"
           disabled={isPending}
           defaultValue=""
-          className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+          className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
           required
         >
           <option value="" disabled>Select a target role</option>
@@ -76,11 +78,11 @@ export function AnalysisForm({ resumes, jobs }: { resumes: Item[], jobs: Item[] 
             </option>
           ))}
         </select>
-        
-        <button 
-          type="submit" 
+
+        <button
+          type="submit"
           disabled={isPending}
-          className="flex w-full items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-6 py-4 text-sm font-medium transition hover:bg-[var(--foreground)]/90 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-medium transition hover:bg-[var(--foreground)]/90 disabled:opacity-50"
           style={{ color: "#ffffff" }}
         >
           {isPending && <Loader2 size={16} className="animate-spin" />}

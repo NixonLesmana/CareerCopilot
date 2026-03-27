@@ -37,23 +37,23 @@ export default async function AnalysisDetailPage({
       
       <main className="flex-1 overflow-hidden grid lg:grid-cols-2 relative h-full">
         {/* Left Pane: Job Context & Analysis */}
-        <section className="h-[calc(100vh-80px)] overflow-y-auto border-r border-[var(--border)] p-6 lg:p-10 pb-24">
-          <div className="mb-8">
+        <section className="h-[calc(100vh-80px)] overflow-y-auto border-r border-[var(--border)] p-5 lg:p-7 pb-16">
+          <div className="mb-6">
             <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">{analysis.job.company ?? "Target company"}</p>
-            <h1 className="section-title mt-3 text-4xl font-semibold">{analysis.job.title}</h1>
-            <p className="mt-2 text-sm text-[var(--muted)]">Matching against: {analysis.resume.title}</p>
+            <h1 className="section-title mt-2 text-3xl font-semibold leading-tight lg:text-[2.5rem]">{analysis.job.title}</h1>
+            <p className="mt-1.5 text-sm text-[var(--muted)]">Matching against: {analysis.resume.title}</p>
           </div>
           <AnalysisCard analysis={parsedAnalysis} />
         </section>
 
         {/* Right Pane: Action Studio */}
-        <section className="h-[calc(100vh-80px)] overflow-y-auto bg-white/40 p-6 lg:p-10 pb-24">
-          <div className="mb-8">
-            <h2 className="section-title text-2xl font-semibold">Rewrite Studio</h2>
-            <p className="mt-2 text-sm text-[var(--muted)]">Tailor your resume directly to the missing skills highlighted.</p>
+        <section className="h-[calc(100vh-80px)] overflow-y-auto bg-white/40 p-5 lg:p-7 pb-16">
+          <div className="mb-5">
+            <h2 className="section-title text-xl font-semibold lg:text-[1.7rem]">Rewrite Studio</h2>
+            <p className="mt-1.5 text-sm leading-6 text-[var(--muted)]">Tailor your resume directly to the missing skills highlighted.</p>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-5">
             {rewrite ? (
               <RewritePanel rewrite={rewrite} />
             ) : (
@@ -63,17 +63,17 @@ export default async function AnalysisDetailPage({
             {coverLetter ? (
               <CoverLetterPreview letter={coverLetter} />
             ) : (
-              <form action="/api/cover-letter" method="post" className="rounded-[32px] border border-[var(--border)] bg-white/75 p-6 shadow-sm">
+              <form action="/api/cover-letter" method="post" className="rounded-[28px] border border-[var(--border)] bg-white/75 p-5 shadow-sm">
                 <input type="hidden" name="analysisId" value={analysis.id} />
-                <div className="mb-4">
+                <div className="mb-3">
                   <h3 className="text-sm font-semibold uppercase tracking-[0.1em] text-[var(--foreground)]">Generate Cover Letter</h3>
                 </div>
-                <select name="tone" className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)]">
+                <select name="tone" className="w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)]">
                   <option value="professional">Professional</option>
                   <option value="confident">Confident</option>
                   <option value="warm">Warm</option>
                 </select>
-                <button className="mt-4 w-full rounded-full bg-[var(--foreground)] px-5 py-4 text-sm font-medium text-white transition hover:bg-[var(--foreground)]/90">
+                <button className="mt-3 w-full rounded-full bg-[var(--foreground)] px-5 py-3 text-sm font-medium text-white transition hover:bg-[var(--foreground)]/90">
                   Draft cover letter
                 </button>
               </form>

@@ -10,9 +10,9 @@ export function MetricTile({
   suffix?: string;
 }) {
   return (
-    <div className="rounded-[28px] border border-[var(--border)] bg-white/70 p-5">
+    <div className="rounded-[24px] border border-[var(--border)] bg-white/70 p-4">
       <p className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">{label}</p>
-      <p className="mt-4 section-title text-5xl font-semibold">
+      <p className="mt-3 section-title text-4xl font-semibold">
         {suffix === "%" ? formatPercent(value) : value}
       </p>
     </div>

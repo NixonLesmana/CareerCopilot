@@ -33,28 +33,30 @@ export default async function DashboardPage() {
   return (
     <>
       <SiteHeader compact />
-      <main className="mx-auto max-w-[1260px] px-4 py-10 sm:px-6">
-        <section className="mb-8">
+      <main className="mx-auto max-w-6xl px-4 py-7 sm:px-6">
+        <section className="mb-6">
           <p className="text-xs uppercase tracking-[0.24em] text-[var(--muted)]">Workspace</p>
-          <h1 className="section-title mt-3 text-5xl font-semibold">Your internship application cockpit.</h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--muted)]">
+          <h1 className="section-title mt-2 text-3xl font-semibold leading-tight lg:text-[2.8rem]">
+            Your internship application cockpit.
+          </h1>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-[var(--muted)] sm:text-[0.95rem]">
             Keep one base resume, compare it against multiple roles, and save better drafts without losing the truth of your original work.
           </p>
         </section>
-        <section className="grid gap-4 md:grid-cols-3">
+        <section className="grid gap-3 md:grid-cols-3">
           <MetricTile label="Resumes" value={resumeCount} />
           <MetricTile label="Jobs saved" value={jobCount} />
           <MetricTile label="Analyses run" value={analysisCount} />
         </section>
-        <section className="mt-8">
+        <section className="mt-6">
           {resumeCount === 0 || jobCount === 0 ? (
             <EmptyState resumeCount={resumeCount} jobCount={jobCount} />
           ) : (
-            <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
               <AnalysisForm resumes={resumes} jobs={jobs} />
               <div className="grid gap-4">
                 {analysisCount === 0 ? (
-                  <div className="rounded-[32px] border border-[var(--border)] bg-white/75 p-8 text-sm leading-7 text-[var(--muted)]">
+                  <div className="rounded-[28px] border border-[var(--border)] bg-white/75 p-6 text-sm leading-6 text-[var(--muted)]">
                     Run your first analysis to unlock rewrites and cover letter generation.
                   </div>
                 ) : (
@@ -62,12 +64,12 @@ export default async function DashboardPage() {
                     <Link
                       key={analysis.id}
                       href={`/analysis/${analysis.id}`}
-                      className="glass rounded-[32px] p-6 transition hover:-translate-y-0.5"
+                      className="glass rounded-[28px] p-5 transition hover:-translate-y-0.5"
                     >
                       <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted)]">{analysis.job.company ?? "Target role"}</p>
-                      <h2 className="section-title mt-3 text-3xl font-semibold">{analysis.job.title}</h2>
-                      <p className="mt-2 text-sm text-[var(--muted)]">{analysis.resume.title}</p>
-                      <p className="mt-6 text-5xl font-semibold">{analysis.overallScore}</p>
+                      <h2 className="section-title mt-2 text-[2rem] font-semibold leading-tight">{analysis.job.title}</h2>
+                      <p className="mt-1.5 text-sm text-[var(--muted)]">{analysis.resume.title}</p>
+                      <p className="mt-4 text-4xl font-semibold">{analysis.overallScore}</p>
                     </Link>
                   ))
                 )}
