@@ -71,7 +71,25 @@ I built Career Copilot to create a more honest and useful workflow for job seeke
 ---
 
 ## Screenshots
+A quick look at Career Copilot’s core experience, from the public landing page to the logged-in application workflow.
 
+### Landing Page
+![Landing Page](./screenshots/landing-page.png)
+
+### Landing Page Detail
+![Landing Page Detail](./screenshots/landing-page2.png)
+
+### Dashboard
+![Dashboard](./screenshots/dashboard.png)
+
+### Resume Management
+![Resume Management](./screenshots/resumes.png)
+
+### Job Management
+![Job Management](./screenshots/jobs.png)
+
+### Match Analysis
+![Match Analysis](./screenshots/analysis.png)
 
 ---
 
@@ -119,6 +137,7 @@ Career Copilot is a full-stack Next.js application.
 CareerCopilot
 ├── prisma        # Database schema and migrations
 ├── public        # Images and static assets
+├── screenshots   # Application screenshots used in README
 ├── src           # Frontend, backend routes, actions, and app logic
 ├── .gitignore
 ├── eslint.config.mjs
