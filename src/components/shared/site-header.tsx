@@ -88,9 +88,14 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
               style={{ color: "#ffffff" }}
             >
               Launch Copilot
-              <ArrowRight className="h-4 w-4" />
             </Link>
-            <UserButton />
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: { width: "42px", height: "42px" },
+                },
+              }}
+            />
           </SignedIn>
         ) : null}
       </div>
